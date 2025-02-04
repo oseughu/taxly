@@ -1,3 +1,4 @@
+# using a .yml file allows us to change configurations easily and add new ones as needed
 eu_countries:
   - Austria
   - Belgium
