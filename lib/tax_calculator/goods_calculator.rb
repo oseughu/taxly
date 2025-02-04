@@ -5,7 +5,7 @@ module TaxCalculator
     def calculate
       transaction, tax_rate = case
       when buyer_country == "Spain"
-        [ "good", VAT_SPANISH ]
+        [ "good", spanish_vat ]
       when in_eu?(buyer_country) && buyer_type == :individual
         [ "good", local_vat_for(buyer_country) ]
       when in_eu?(buyer_country) && buyer_type == :company
