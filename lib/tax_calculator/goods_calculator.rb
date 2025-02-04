@@ -15,7 +15,7 @@ module TaxCalculator
       end
 
       tax_amount = price * tax_rate
-      { transaction_type: transaction, tax_rate: tax_rate, tax_amount: tax_amount }
+      { transaction_type: transaction, tax_rate:, tax_amount: }
     end
   end
 end
