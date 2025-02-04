@@ -11,7 +11,7 @@ module TaxCalculator
       when in_eu?(buyer_country) && buyer_type == :company
         [ "reverse charge", 0.0 ]
       else
-        [ [ "service", "digital" ], 0.0 ]
+        [ "export", 0.0 ]
       end
 
       tax_amount = price * tax_rate
