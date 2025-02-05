@@ -151,7 +151,9 @@ Returned if an unexpected error occurs.
 
 Taxly uses RSpec for testing the tax calculation logic. To run the test suite, execute:
 
+```bash
 bundle exec rspec
+```
 
 This will run all tests located in the spec/ directory and provide you with a report on the test coverage and outcomes.
 
