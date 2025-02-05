@@ -1,0 +1,83 @@
+good:
+  - conditions:
+      buyer_country: 'Spain'
+    action:
+      transaction_type: 'good'
+      transaction_subtype: null
+      vat: 'spanish_vat'
+  - conditions:
+      buyer_country: 'EU'
+      buyer_type: 'individual'
+    action:
+      transaction_type: 'good'
+      transaction_subtype: null
+      vat: 'local_vat'
+  - conditions:
+      buyer_country: 'EU'
+      buyer_type: 'company'
+    action:
+      transaction_type: 'reverse charge'
+      transaction_subtype: null
+      vat: 0.0
+  - conditions:
+      buyer_country: 'not_EU'
+    action:
+      transaction_type: 'export'
+      transaction_subtype: null
+      vat: 0.0
+
+digital:
+  - conditions:
+      buyer_country: 'Spain'
+    action:
+      transaction_type: 'service'
+      transaction_subtype: 'digital'
+      vat: 'spanish_vat'
+  - conditions:
+      buyer_country: 'EU'
+      buyer_type: 'individual'
+    action:
+      transaction_type: 'service'
+      transaction_subtype: 'digital'
+      vat: 'local_vat'
+  - conditions:
+      buyer_country: 'EU'
+      buyer_type: 'company'
+    action:
+      transaction_type: 'reverse charge'
+      transaction_subtype: null
+      vat: 0.0
+  - conditions:
+      buyer_country: 'not_EU'
+    action:
+      transaction_type: 'service'
+      transaction_subtype: 'digital'
+      vat: 0.0
+
+onsite:
+  - conditions:
+      service_location: 'Spain'
+    action:
+      transaction_type: 'service'
+      transaction_subtype: 'onsite'
+      vat: 'spanish_vat'
+  - conditions:
+      service_location: 'EU'
+      buyer_type: 'individual'
+    action:
+      transaction_type: 'service'
+      transaction_subtype: 'onsite'
+      vat: 'local_vat'
+  - conditions:
+      service_location: 'EU'
+      buyer_type: 'company'
+    action:
+      transaction_type: 'reverse charge'
+      transaction_subtype: null
+      vat: 0.0
+  - conditions:
+      service_location: 'not_EU'
+    action:
+      transaction_type: 'export'
+      transaction_subtype: null
+      vat: 0.0

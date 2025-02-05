@@ -1,8 +1,8 @@
 require_relative '../../lib/tax_calculator'
-require_relative '../../lib/tax_config'  # Ensure our config is loaded
+require_relative '../../lib/tax_config' # Ensure our config is loaded
 
 RSpec.describe TaxCalculator do
-  let(:spanish_vat) { TaxConfig.spanish_vat }  # From the config
+  let(:spanish_vat) { TaxConfig.spanish_vat }
 
   describe ".calculate" do
     context "when product_type is :good" do
@@ -16,8 +16,9 @@ RSpec.describe TaxCalculator do
           )
         end
 
-        it "applies Spanish VAT" do
+        it "applies Spanish VAT for goods" do
           expect(subject[:transaction_type]).to eq("good")
+          expect(subject[:transaction_subtype]).to be_nil
           expect(subject[:tax_rate]).to eq(spanish_vat)
           expect(subject[:tax_amount]).to eq(100.0 * spanish_vat)
         end
@@ -33,9 +34,10 @@ RSpec.describe TaxCalculator do
           )
         end
 
-        it "applies local VAT" do
+        it "applies local VAT for goods" do
           expected_rate = TaxConfig.local_vat_for("France")
           expect(subject[:transaction_type]).to eq("good")
+          expect(subject[:transaction_subtype]).to be_nil
           expect(subject[:tax_rate]).to eq(expected_rate)
           expect(subject[:tax_amount]).to eq(100.0 * expected_rate)
         end
@@ -53,6 +55,7 @@ RSpec.describe TaxCalculator do
 
         it "applies reverse charge" do
           expect(subject[:transaction_type]).to eq("reverse charge")
+          expect(subject[:transaction_subtype]).to be_nil
           expect(subject[:tax_rate]).to eq(0.0)
           expect(subject[:tax_amount]).to eq(0.0)
         end
@@ -68,8 +71,9 @@ RSpec.describe TaxCalculator do
           )
         end
 
-        it "marks the transaction as export (no tax)" do
+        it "marks the transaction as export" do
           expect(subject[:transaction_type]).to eq("export")
+          expect(subject[:transaction_subtype]).to be_nil
           expect(subject[:tax_rate]).to eq(0.0)
           expect(subject[:tax_amount]).to eq(0.0)
         end
@@ -83,12 +87,13 @@ RSpec.describe TaxCalculator do
             product_type: :digital,
             price: 100.0,
             buyer_country: "Spain",
-            buyer_type: :company
+            buyer_type: :individual
           )
         end
 
-        it "applies Spanish VAT" do
-          expect(subject[:transaction_type]).to eq([ "service", "digital" ])
+        it "applies Spanish VAT for digital services" do
+          expect(subject[:transaction_type]).to eq("service")
+          expect(subject[:transaction_subtype]).to eq("digital")
           expect(subject[:tax_rate]).to eq(spanish_vat)
           expect(subject[:tax_amount]).to eq(100.0 * spanish_vat)
         end
@@ -104,9 +109,10 @@ RSpec.describe TaxCalculator do
           )
         end
 
-        it "applies local VAT" do
+        it "applies local VAT for digital services" do
           expected_rate = TaxConfig.local_vat_for("Italy")
-          expect(subject[:transaction_type]).to eq([ "service", "digital" ])
+          expect(subject[:transaction_type]).to eq("service")
+          expect(subject[:transaction_subtype]).to eq("digital")
           expect(subject[:tax_rate]).to eq(expected_rate)
           expect(subject[:tax_amount]).to eq(100.0 * expected_rate)
         end
@@ -124,6 +130,7 @@ RSpec.describe TaxCalculator do
 
         it "applies reverse charge" do
           expect(subject[:transaction_type]).to eq("reverse charge")
+          expect(subject[:transaction_subtype]).to be_nil
           expect(subject[:tax_rate]).to eq(0.0)
           expect(subject[:tax_amount]).to eq(0.0)
         end
@@ -139,8 +146,9 @@ RSpec.describe TaxCalculator do
           )
         end
 
-        it "applies no tax" do
-          expect(subject[:transaction_type]).to eq([ "service", "digital" ])
+        it "applies no tax for digital services" do
+          expect(subject[:transaction_type]).to eq("service")
+          expect(subject[:transaction_subtype]).to eq("digital")
           expect(subject[:tax_rate]).to eq(0.0)
           expect(subject[:tax_amount]).to eq(0.0)
         end
@@ -159,8 +167,9 @@ RSpec.describe TaxCalculator do
           )
         end
 
-        it "applies Spanish VAT regardless of buyer location" do
-          expect(subject[:transaction_type]).to eq([ "service", "onsite" ])
+        it "applies Spanish VAT for onsite services" do
+          expect(subject[:transaction_type]).to eq("service")
+          expect(subject[:transaction_subtype]).to eq("onsite")
           expect(subject[:tax_rate]).to eq(spanish_vat)
           expect(subject[:tax_amount]).to eq(200.0 * spanish_vat)
         end
@@ -177,9 +186,10 @@ RSpec.describe TaxCalculator do
           )
         end
 
-        it "applies local VAT" do
+        it "applies local VAT for onsite services" do
           expected_rate = TaxConfig.local_vat_for("Germany")
-          expect(subject[:transaction_type]).to eq([ "service", "onsite" ])
+          expect(subject[:transaction_type]).to eq("service")
+          expect(subject[:transaction_subtype]).to eq("onsite")
           expect(subject[:tax_rate]).to eq(expected_rate)
           expect(subject[:tax_amount]).to eq(200.0 * expected_rate)
         end
@@ -198,6 +208,7 @@ RSpec.describe TaxCalculator do
 
         it "applies reverse charge" do
           expect(subject[:transaction_type]).to eq("reverse charge")
+          expect(subject[:transaction_subtype]).to be_nil
           expect(subject[:tax_rate]).to eq(0.0)
           expect(subject[:tax_amount]).to eq(0.0)
         end
@@ -216,6 +227,7 @@ RSpec.describe TaxCalculator do
 
         it "marks the transaction as export (no tax)" do
           expect(subject[:transaction_type]).to eq("export")
+          expect(subject[:transaction_subtype]).to be_nil
           expect(subject[:tax_rate]).to eq(0.0)
           expect(subject[:tax_amount]).to eq(0.0)
         end

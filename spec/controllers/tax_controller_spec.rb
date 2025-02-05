@@ -20,6 +20,7 @@ RSpec.describe "Taxly API", type: :request do
           expect(response).to have_http_status(:ok)
           json = JSON.parse(response.body)
           expect(json["transaction_type"]).to eq("good")
+          expect(json["transaction_subtype"]).to be_nil
           expect(json["tax_rate"]).to eq(TaxConfig.spanish_vat)
           expect(json["tax_amount"]).to eq(100.0 * TaxConfig.spanish_vat)
         end
@@ -39,9 +40,11 @@ RSpec.describe "Taxly API", type: :request do
           post "/calculate", params: payload, headers: headers
           expect(response).to have_http_status(:ok)
           json = JSON.parse(response.body)
-          expect(json["transaction_type"]).to eq([ "service", "digital" ])
-          expect(json["tax_rate"]).to eq(TaxConfig.local_vat_for("Italy"))
-          expect(json["tax_amount"]).to eq(100.0 * TaxConfig.local_vat_for("Italy"))
+          expect(json["transaction_type"]).to eq("service")
+          expect(json["transaction_subtype"]).to eq("digital")
+          expected_rate = TaxConfig.local_vat_for("Italy")
+          expect(json["tax_rate"]).to eq(expected_rate)
+          expect(json["tax_amount"]).to eq(100.0 * expected_rate)
         end
       end
 
@@ -60,7 +63,8 @@ RSpec.describe "Taxly API", type: :request do
           post "/calculate", params: payload, headers: headers
           expect(response).to have_http_status(:ok)
           json = JSON.parse(response.body)
-          expect(json["transaction_type"]).to eq([ "service", "onsite" ])
+          expect(json["transaction_type"]).to eq("service")
+          expect(json["transaction_subtype"]).to eq("onsite")
           expect(json["tax_rate"]).to eq(TaxConfig.spanish_vat)
           expect(json["tax_amount"]).to eq(200.0 * TaxConfig.spanish_vat)
         end
