@@ -45,19 +45,20 @@ POST /calculate
 The /calculate endpoint accepts a JSON payload containing transaction details and returns a tax calculation result based on the provided parameters.
 
 Request Payload
-• product_type (string, required):
-The type of product or service. Valid values are:
-• "good" — for physical products.
-• "digital" — for digital subscription services.
-• "onsite" — for in-person training courses or onsite services.
-• price (number, required):
-The sale price of the product or service.
-• buyer_country (string, required):
-The country where the buyer is located (e.g. "Spain", "France").
-• buyer_type (string, required):
-The type of buyer. Valid values are "individual" or "company".
-• service_location (string, conditionally required):
-For "onsite" transactions only; the country where the service is provided.
+
+- product_type (string, required):
+  The type of product or service. Valid values are:
+- "good" — for physical products.
+- "digital" — for digital subscription services.
+- "onsite" — for in-person training courses or onsite services.
+- price (number, required):
+  The sale price of the product or service.
+- buyer_country (string, required):
+  The country where the buyer is located (e.g. "Spain", "France").
+- buyer_type (string, required):
+  The type of buyer. Valid values are "individual" or "company".
+- service_location (string, conditionally required):
+  For "onsite" transactions only; the country where the service is provided.
 
 ## Example Requests
 
