@@ -159,11 +159,11 @@ This will run all tests located in the spec/ directory and provide you with a re
 
 ## Extending the Application
 
-To make the system adaptable and easily configurable, tax calculations are configured in the config/tax_config.yml file
+To make the system adaptable and easily configurable, tax calculations are configured in the `config/tax_config.yml` file
 
 Make changes to the file to see how calculations can be affected.
 
-The tax calculation logic is split into separate classes under lib/tax_calculator/:
+The tax calculation logic is split into separate classes under `lib/tax_calculator/`:
 
 - BaseCalculator: Contains shared constants and helper methods.
 - GoodsCalculator, DigitalServicesCalculator, OnsiteServicesCalculator: Each handles the tax logic for a specific transaction type.
