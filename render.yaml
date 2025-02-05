@@ -1,9 +1,3 @@
-databases:
-  - name: taxly
-    databaseName: taxly
-    user: taxly
-    plan: free
-
 services:
   - type: web
     name: taxly
