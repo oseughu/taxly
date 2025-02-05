@@ -164,10 +164,12 @@ To make the system adaptable and easily configurable, tax calculations are confi
 Make changes to the file to see how calculations can be affected.
 
 The tax calculation logic is split into separate classes under lib/tax_calculator/:
-• BaseCalculator: Contains shared constants and helper methods.
-• GoodsCalculator, DigitalServicesCalculator, OnsiteServicesCalculator: Each handles the tax logic for a specific transaction type.
+
+- BaseCalculator: Contains shared constants and helper methods.
+- GoodsCalculator, DigitalServicesCalculator, OnsiteServicesCalculator: Each handles the tax logic for a specific transaction type.
 
 This modular design makes it easy to:
-• Update or add new tax rules.
-• Integrate with external tax rate APIs.
-• Extend functionality to support additional countries or services.
+
+- Update or add new tax rules.
+- Integrate with external tax rate APIs.
+- Extend functionality to support additional countries or services.
