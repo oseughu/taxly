@@ -103,8 +103,9 @@ On success, the endpoint returns a JSON object with:
 - transaction_type (string):
   The type of transaction, such as:
 - "good" — for standard physical product transactions.
-- "service/digital" — for digital services.
-- "service/onsite" — for onsite services.
+- "service" — for various services.
+- transaction_subtype (string):
+  services can either have a sub_type of "digital" for digital services or "onsite" for onsite services
 - "reverse charge" — if no VAT is applied (typically for companies in the EU).
 - "export" — for transactions outside the EU.
 - tax_rate (number):
@@ -159,9 +160,12 @@ This will run all tests located in the spec/ directory and provide you with a re
 
 ## Extending the Application
 
-To make the system adaptable and easily configurable, tax calculations are configured in the `config/tax_config.yml` file
+To make the system adaptable and easily configurable, tax calculations are configured in two files:
 
-Make changes to the file to see how calculations can be affected.
+- `config/tax_config.yml` (specify a country's tax rate)
+- `config/tax_rules.yml` (specify tax calculation conditions)
+
+Make changes to those files to see how calculations can be affected.
 
 The tax calculation logic is split into separate classes under `lib/tax_calculator/`:
 
