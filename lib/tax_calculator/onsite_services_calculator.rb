@@ -16,10 +16,10 @@ module TaxCalculator
       when Numeric then vat_config
       when "spanish_vat" then spanish_vat
       when "local_vat" then local_vat_for(service_location)
-      else 0.0
+      else 0.00
       end
 
-      tax_amount = price * tax_rate
+      tax_amount = (price * tax_rate).round(2)
       {
         transaction_type: transaction_type,
         transaction_subtype: transaction_subtype,
