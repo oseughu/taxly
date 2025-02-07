@@ -16,11 +16,11 @@ module TaxCalculator
     end
 
     def local_vat_for(country)
-      TaxConfig.local_vat_for(country)
+      TaxConfig.local_vat_for(country).to_f
     end
 
     def spanish_vat
-      TaxConfig.spanish_vat
+      TaxConfig.spanish_vat.to_f
     end
   end
 end

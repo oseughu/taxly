@@ -24,7 +24,7 @@ module TaxCalculator
         transaction_type: transaction_type,
         transaction_subtype: transaction_subtype,
         tax_rate: tax_rate,
-        tax_amount: tax_amount
+        tax_amount: tax_amount.to_f
       }
     end
   end
