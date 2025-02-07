@@ -40,6 +40,8 @@ Your application will be running at <http://localhost:3000>.
 
 ## API Endpoints
 
+If you would like to test this in production, the base URL is: <https://taxly.oseughu.com>. I had a lot of fun building this, so I decided to host it for a while. I used hatchbox.io and hetzner cloud to deploy this.
+
 POST /calculate
 
 The /calculate endpoint accepts a JSON payload containing transaction details and returns a tax calculation result based on the provided parameters.
