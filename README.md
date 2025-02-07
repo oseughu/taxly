@@ -179,3 +179,9 @@ This modular design makes it easy to:
 - Update or add new tax rules.
 - Integrate with external tax rate APIs.
 - Extend functionality to support additional countries or services.
+
+## Future Improvements
+
+- Ideally, the tax rules would be stored in a database for easier management and updates.
+- Authentication and rate limiting could be added to the API for security and performance.
+- We should store currency values in lower denominations (e.g. cents, pence) to avoid floating-point errors.
