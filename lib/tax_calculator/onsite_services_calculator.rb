@@ -19,12 +19,12 @@ module TaxCalculator
       else 0.00
       end
 
-      tax_amount = format("%.2f", (price * tax_rate).round(2))
+      tax_amount = price * tax_rate
       {
         transaction_type: transaction_type,
         transaction_subtype: transaction_subtype,
         tax_rate: tax_rate,
-        tax_amount: tax_amount.to_f
+        tax_amount: tax_amount
       }
     end
   end
