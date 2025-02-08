@@ -1,5 +1,3 @@
-require "yaml"
-
 module TaxConfig
   CONFIG = YAML.load_file(File.join(__dir__, "..", "config", "tax_config.yml")).freeze
 

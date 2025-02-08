@@ -1,4 +1,3 @@
-require "yaml"
 require_relative "tax_config"
 
 module TaxRules
