@@ -3,29 +3,19 @@ require_relative "../tax_rules"
 
 module TaxCalculator
   class DigitalServicesCalculator < BaseCalculator
-    def calculate
-      attributes = { buyer_country: buyer_country, buyer_type: buyer_type }
-      action = TaxRules.rule_for("digital", attributes)
-      raise "No rule matched for digital services" unless action
+    # For digital services, the rule key is "digital"
+    def tax_rule_key
+      "digital"
+    end
 
-      transaction_type    = action["transaction_type"]
-      transaction_subtype = action["transaction_subtype"]
-      vat_config          = action["vat"]
+    # The matching attributes for digital services come from the buyer's country and type.
+    def tax_rule_attributes
+      { buyer_country: buyer_country, buyer_type: buyer_type }
+    end
 
-      tax_rate = case vat_config
-      when Numeric then vat_config
-      when "spanish_vat" then spanish_vat
-      when "local_vat" then local_vat_for(buyer_country)
-      else 0.00
-      end
-
-      tax_amount = price * tax_rate
-      {
-        transaction_type: transaction_type,
-        transaction_subtype: transaction_subtype,
-        tax_rate: tax_rate,
-        tax_amount: tax_amount.to_f
-      }
+    # When looking up the local VAT, we use the buyer's country.
+    def local_vat_target
+      buyer_country
     end
   end
 end
