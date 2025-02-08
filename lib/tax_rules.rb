@@ -8,7 +8,7 @@ module TaxRules
   def self.rule_for(product_type, attributes)
     rules = CONFIG[product_type.to_s] || []
     rules.each do |rule|
-      return rule["action"] if match_rule?(rule["conditions"], attributes)
+      return rule["action"] if match_rule?(rule["conditions"], attributes.transform_keys(&:to_sym))
     end
     nil
   end
@@ -17,20 +17,23 @@ module TaxRules
 
   def self.match_rule?(conditions, attributes)
     conditions.all? do |key, expected|
-      actual = attributes[key.to_sym] || attributes[key]
-      case key.to_s
-      when "buyer_country", "service_location"
-        case expected
-        when "EU"
-          TaxConfig.eu_countries.include?(actual)
-        when "not_EU"
-          !TaxConfig.eu_countries.include?(actual)
-        else
-          actual == expected
-        end
+      actual = attributes[key.to_sym]
+      if [ "buyer_country", "service_location" ].include?(key.to_s)
+        match_country_or_location?(expected, actual)
       else
         actual.to_s == expected.to_s
       end
+    end
+  end
+
+  def self.match_country_or_location?(expected, actual)
+    case expected
+    when "EU"
+      TaxConfig.eu_countries.include?(actual)
+    when "not_EU"
+      !TaxConfig.eu_countries.include?(actual)
+    else
+      actual == expected
     end
   end
 end

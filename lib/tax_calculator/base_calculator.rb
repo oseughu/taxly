@@ -33,9 +33,9 @@ module TaxCalculator
       vat_config          = action["vat"]
 
       tax_rate = case vat_config
-      when Numeric      then vat_config
+      when Numeric       then vat_config
       when "spanish_vat" then spanish_vat
-      when "local_vat"  then local_vat_for(local_vat_target)
+      when "local_vat"   then local_vat_for(local_vat_target)
       else 0.00
       end
 
