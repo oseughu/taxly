@@ -10,7 +10,7 @@ module TaxCalculator
 
     # Here we match based on the service location (and buyer type).
     def tax_rule_attributes
-      { service_location: service_location, buyer_type: buyer_type }
+      { service_location:, buyer_type: }
     end
 
     # For local VAT, we use the service location rather than the buyer's country.

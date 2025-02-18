@@ -10,7 +10,7 @@ module TaxCalculator
 
     # The matching attributes for goods are also based on the buyer's country and type.
     def tax_rule_attributes
-      { buyer_country: buyer_country, buyer_type: buyer_type }
+      { buyer_country:, buyer_type: }
     end
 
     # The local VAT lookup again uses the buyer's country.

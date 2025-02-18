@@ -17,11 +17,11 @@ class TaxController < ApplicationController
 
     begin
       result = TaxCalculator.calculate(
-        product_type: product_type,
-        price: price,
-        buyer_country: buyer_country,
-        buyer_type: buyer_type,
-        service_location: service_location
+        product_type:,
+        price:,
+        buyer_country:,
+        buyer_type:,
+        service_location:
       )
       render json: result, status: :ok
     rescue ArgumentError => e

@@ -10,7 +10,7 @@ module TaxCalculator
 
     # The matching attributes for digital services come from the buyer's country and type.
     def tax_rule_attributes
-      { buyer_country: buyer_country, buyer_type: buyer_type }
+      { buyer_country:, buyer_type: }
     end
 
     # When looking up the local VAT, we use the buyer's country.
