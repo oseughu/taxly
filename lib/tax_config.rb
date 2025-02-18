@@ -14,6 +14,7 @@ module TaxConfig
   end
 
   def self.local_vat_for(country)
-    local_vat_rates[country] || spanish_vat
+    normalized_country = country.to_s.split.map(&:capitalize).join(" ")
+    local_vat_rates[normalized_country] || spanish_vat
   end
 end

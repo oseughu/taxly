@@ -28,11 +28,11 @@ module TaxRules
   def self.match_country_or_location?(expected, actual)
     case expected
     when "EU"
-      TaxConfig.eu_countries.include?(actual)
+      TaxConfig.eu_countries.map(&:downcase).include?(actual.to_s.downcase)
     when "not_EU"
-      !TaxConfig.eu_countries.include?(actual)
+      !TaxConfig.eu_countries.map(&:downcase).include?(actual.to_s.downcase)
     else
-      actual == expected
+      actual.to_s.downcase == expected.downcase
     end
   end
 end
