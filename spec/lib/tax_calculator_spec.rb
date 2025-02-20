@@ -206,11 +206,11 @@ RSpec.describe TaxCalculator do
           )
         end
 
-        it "applies reverse charge" do
-          expect(subject[:transaction_type]).to eq("reverse charge")
-          expect(subject[:transaction_subtype]).to be_nil
-          expect(subject[:tax_rate]).to eq(0.0)
-          expect(subject[:tax_amount]).to eq(0.0)
+        it "applies local VAT for onsite services" do
+          expect(subject[:transaction_type]).to eq("service")
+          expect(subject[:transaction_subtype]).to eq("onsite")
+          expect(subject[:tax_rate]).to eq(0.20)
+          expect(subject[:tax_amount]).to eq(40.0)
         end
       end
 
@@ -225,11 +225,11 @@ RSpec.describe TaxCalculator do
           )
         end
 
-        it "marks the transaction as export (no tax)" do
-          expect(subject[:transaction_type]).to eq("export")
-          expect(subject[:transaction_subtype]).to be_nil
-          expect(subject[:tax_rate]).to eq(0.0)
-          expect(subject[:tax_amount]).to eq(0.0)
+        it "applies local VAT for onsite services" do
+          expect(subject[:transaction_type]).to eq("service")
+          expect(subject[:transaction_subtype]).to eq("onsite")
+          expect(subject[:tax_rate]).to eq(0.21)
+          expect(subject[:tax_amount]).to eq(42.0)
         end
       end
 
