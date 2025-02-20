@@ -11,7 +11,7 @@ class TaxController < ApplicationController
     service_location = params[:service_location]
 
     # Validate mandatory parameters
-    unless product_type && price > 0 && buyer_country && buyer_type
+    unless product_type && price && buyer_country && buyer_type
       render json: { error: "Missing required parameters" }, status: :bad_request and return
     end
 

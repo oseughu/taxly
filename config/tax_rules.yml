@@ -72,12 +72,20 @@ onsite:
       service_location: 'EU'
       buyer_type: 'company'
     action:
-      transaction_type: 'reverse charge'
-      transaction_subtype: null
-      vat: 0.00
+      transaction_type: 'service'
+      transaction_subtype: 'onsite'
+      vat: 'local_vat'
   - conditions:
       service_location: 'not_EU'
+      buyer_type: 'individual'
     action:
-      transaction_type: 'export'
-      transaction_subtype: null
-      vat: 0.00
+      transaction_type: 'service'
+      transaction_subtype: 'onsite'
+      vat: 'local_vat'
+  - conditions:
+      service_location: 'not_EU'
+      buyer_type: 'company'
+    action:
+      transaction_type: 'service'
+      transaction_subtype: 'onsite'
+      vat: 'local_vat'
